@@ -4,376 +4,7 @@
   <url>
     <loc>http://blog.actpi.com/tags/index.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2023/%E6%97%B6%E9%97%B4%E6%8D%A2%E7%AE%97.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2023/%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%9A%84GitLabCI%E5%AE%9E%E7%8E%B0.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2024/pandas.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2024/subprocess.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/Python-3-%E7%88%AC%E5%8F%96%E5%9F%8E%E5%B8%82%E5%8E%86%E5%8F%B2PM2-5%E6%95%B0%E6%8D%AE.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/centos-extmail.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/docker-nginx-proxy.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/forget-root-passwword.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/hexo-git-cname.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/iis-error-write.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/iis-error.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/nginx-index.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/oracle-install.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/proxy-pass.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/pyinstaller.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/sql-error-18456.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/strptime.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/ttf-404.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/before/winsw.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/ES%E5%AE%89%E8%A3%85.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/Let'sEncrypt%E5%85%8D%E8%B4%B9HTTPS%E8%AF%81%E4%B9%A6-%E6%B3%9B%E5%9F%9F%E5%90%8D%E7%94%B3%E8%AF%B7.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/gitlab%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E6%8A%A5%E9%94%99RPCfailcode500.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/gitlab%E6%96%87%E6%A1%A3.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/git%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6%E5%90%8ECRLF%E5%92%8CLF%E7%9A%84%E6%8D%A2%E8%A1%8C%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/ssl-error.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/%E4%BD%BF%E7%94%A8ES%E7%B4%A2%E5%BC%95%E6%A8%A1%E6%9D%BF%E5%AE%9E%E7%8E%B0%E7%B4%A2%E5%BC%95%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2019/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6%E7%A7%BB%E5%8A%A8%E7%9B%98%E7%AC%A6.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2020/Nginx%E9%99%90%E5%88%B6%E8%BF%9E%E6%8E%A5%E6%95%B0%E4%B8%8E%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2020/jenkins-install.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/install-python.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/jenkins-file-mutibrach.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/shellnotes.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/supervisor-install.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/%E5%AE%89%E8%A3%85OpenSSHServer.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2021/%E8%8B%B9%E6%9E%9C%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97%E8%BF%87%E5%AE%A1IPV6%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2022/Centos-vnc.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2022/centos_cmake_vscode.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2022/gitlab-ci%E9%80%9A%E8%BF%87%E9%92%89%E9%92%89%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2022/pure-bash-bible.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
-    
-    <changefreq>monthly</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>http://blog.actpi.com/articles/2023/compile_mumps.html</loc>
-    
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -382,7 +13,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/extend_fs.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -391,7 +22,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/gcc-toolset.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -400,7 +31,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/git-action-blog.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -409,7 +40,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/git-netlify-blog.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -418,7 +49,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/gitlab-ci.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -427,7 +58,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/gitlab_deploy_release.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -436,7 +67,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/install_abaqus_linux.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -445,7 +76,7 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/jenkins_shell.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -454,7 +85,430 @@
   <url>
     <loc>http://blog.actpi.com/articles/2023/python%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E5%90%8E%E7%BC%80.html</loc>
     
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2023/%E6%97%B6%E9%97%B4%E6%8D%A2%E7%AE%97.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2023/%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%9A%84GitLabCI%E5%AE%9E%E7%8E%B0.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2024/jenkins-api.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2024/pandas.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2024/subprocess.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2024/%E5%8D%87%E7%BA%A7glibc%E5%88%B02.28.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2025/intel-mpi-error.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2026/aliyun-fc-gitlab-dingtalk.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2026/elevator-algorithm.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2025/DOTA2%20TI14.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/Python-3-%E7%88%AC%E5%8F%96%E5%9F%8E%E5%B8%82%E5%8E%86%E5%8F%B2PM2-5%E6%95%B0%E6%8D%AE.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/centos-extmail.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/docker-nginx-proxy.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/forget-root-passwword.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/hexo-git-cname.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/iis-error-write.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/iis-error.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/nginx-index.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/oracle-install.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/proxy-pass.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/pyinstaller.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/sql-error-18456.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/strptime.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/ttf-404.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/before/winsw.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/ES%E5%AE%89%E8%A3%85.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/Let'sEncrypt%E5%85%8D%E8%B4%B9HTTPS%E8%AF%81%E4%B9%A6-%E6%B3%9B%E5%9F%9F%E5%90%8D%E7%94%B3%E8%AF%B7.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/gitlab%E6%8B%89%E5%8F%96%E4%BB%A3%E7%A0%81%E6%8A%A5%E9%94%99RPCfailcode500.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/gitlab%E6%96%87%E6%A1%A3.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/git%E6%8F%90%E4%BA%A4%E6%96%87%E4%BB%B6%E5%90%8ECRLF%E5%92%8CLF%E7%9A%84%E6%8D%A2%E8%A1%8C%E5%A4%84%E7%90%86%E9%97%AE%E9%A2%98.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/ssl-error.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/%E4%BD%BF%E7%94%A8ES%E7%B4%A2%E5%BC%95%E6%A8%A1%E6%9D%BF%E5%AE%9E%E7%8E%B0%E7%B4%A2%E5%BC%95%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E7%AE%A1%E7%90%86.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2019/%E6%95%B0%E6%8D%AE%E5%BA%93%E6%96%87%E4%BB%B6%E7%A7%BB%E5%8A%A8%E7%9B%98%E7%AC%A6.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2020/Nginx%E9%99%90%E5%88%B6%E8%BF%9E%E6%8E%A5%E6%95%B0%E4%B8%8E%E9%99%90%E5%88%B6%E8%AF%B7%E6%B1%82%E9%A2%91%E7%8E%87.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2020/jenkins-install.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/Docker%E5%AE%89%E8%A3%85%E4%B8%8E%E5%9F%BA%E7%A1%80%E9%85%8D%E7%BD%AE.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/install-python.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/jenkins-file-mutibrach.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/shellnotes.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/supervisor-install.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/%E5%AE%89%E8%A3%85OpenSSHServer.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2021/%E8%8B%B9%E6%9E%9C%E5%BA%94%E7%94%A8%E5%95%86%E5%BA%97%E8%BF%87%E5%AE%A1IPV6%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2022/Centos-vnc.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2022/centos_cmake_vscode.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2022/gitlab-ci%E9%80%9A%E8%BF%87%E9%92%89%E9%92%89%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2022/pure-bash-bible.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
+    
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/articles/2023/compile_mumps.html</loc>
+    
+    <lastmod>2026-08-17</lastmod>
     
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
@@ -463,7 +517,7 @@
 
   <url>
     <loc>http://blog.actpi.com/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>daily</changefreq>
     <priority>1.0</priority>
   </url>
@@ -471,91 +525,147 @@
   
   <url>
     <loc>http://blog.actpi.com/tags/%E7%AC%94%E8%AE%B0/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/linux/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/ssl/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/Git/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/%E8%B8%A9%E5%9D%91/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/DevOps/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/DB/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/nginx/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/docker/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/python/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/%E7%BC%96%E8%AF%91/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/CI-CD/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>
   
   <url>
     <loc>http://blog.actpi.com/tags/ipv6/</loc>
-    <lastmod>2024-03-12</lastmod>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/Serverless/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/Python/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/GitLab/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/%E7%AE%97%E6%B3%95/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/%E8%B0%83%E5%BA%A6/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/DOTA2/</loc>
+    <lastmod>2026-08-17</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  
+  <url>
+    <loc>http://blog.actpi.com/tags/Ti14/</loc>
+    <lastmod>2026-08-17</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.2</priority>
   </url>

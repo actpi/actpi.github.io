@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.actpi.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在 DevOps 流程中，及时的消息通知对于团队协作至关重要。虽然 GitLab 自带了一些集成，但往往难以满足个性化的通知需求。本文将介绍如何利用阿里云函数计算（FC）搭建一个轻量、低成本且高度可定制的 GitLab Webhook 转发服务，将代码提交、合并请求、Pipeline 状态等实时推送到钉钉群。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用阿里云函数计算实现 GitLab Webhook 钉钉推送">
+<meta property="og:url" content="http://blog.actpi.com/articles/2026/aliyun-fc-gitlab-dingtalk.html">
+<meta property="og:site_name" content="ActPi&#39;s Blog">
+<meta property="og:description" content="在 DevOps 流程中，及时的消息通知对于团队协作至关重要。虽然 GitLab 自带了一些集成，但往往难以满足个性化的通知需求。本文将介绍如何利用阿里云函数计算（FC）搭建一个轻量、低成本且高度可定制的 GitLab Webhook 转发服务，将代码提交、合并请求、Pipeline 状态等实时推送到钉钉群。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-06-01T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-17T02:33:45.997Z">
+<meta property="article:author" content="actpi">
+<meta property="article:tag" content="DevOps">
+<meta property="article:tag" content="Serverless">
+<meta property="article:tag" content="Python">
+<meta property="article:tag" content="GitLab">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.actpi.com/articles/2026/aliyun-fc-gitlab-dingtalk.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.actpi.com/articles/2026/aliyun-fc-gitlab-dingtalk.html","path":"articles/2026/aliyun-fc-gitlab-dingtalk.html","title":"使用阿里云函数计算实现 GitLab Webhook 钉钉推送"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>使用阿里云函数计算实现 GitLab Webhook 钉钉推送 | ActPi's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108110955-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-108110955-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ActPi's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share & Record</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tag fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%80%89%E6%8B%A9%E4%BA%91%E5%87%BD%E6%95%B0"><span class="nav-number">1.</span> <span class="nav-text"> 为什么选择云函数？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E5%87%86%E5%A4%87"><span class="nav-number">2.</span> <span class="nav-text"> 环境准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%9E%E7%8E%B0"><span class="nav-number">3.</span> <span class="nav-text"> 代码实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E6%A0%B8%E5%BF%83%E9%80%BB%E8%BE%91"><span class="nav-number">3.1.</span> <span class="nav-text"> 1. 核心逻辑</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E4%BA%8B%E4%BB%B6%E5%A4%84%E7%90%86%E7%BB%86%E8%8A%82"><span class="nav-number">3.2.</span> <span class="nav-text"> 2. 事件处理细节</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%83%A8%E7%BD%B2%E6%AD%A5%E9%AA%A4"><span class="nav-number">4.</span> <span class="nav-text"> 部署步骤</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E9%98%BF%E9%87%8C%E4%BA%91%E5%87%BD%E6%95%B0%E8%AE%A1%E7%AE%97%E9%85%8D%E7%BD%AE"><span class="nav-number">4.1.</span> <span class="nav-text"> 1. 阿里云函数计算配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-gitlab-webhook-%E9%85%8D%E7%BD%AE"><span class="nav-number">4.2.</span> <span class="nav-text"> 2. GitLab Webhook 配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">5.</span> <span class="nav-text"> 总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="actpi"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">actpi</p>
+  <div class="site-description" itemprop="description">Records some think,and some experience,or just mean to write it.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/actpi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;actpi" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:actpi@qq.com" title="E-Mail → mailto:actpi@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2026/aliyun-fc-gitlab-dingtalk.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="使用阿里云函数计算实现 GitLab Webhook 钉钉推送 | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          使用阿里云函数计算实现 GitLab Webhook 钉钉推送
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-06-02 00:00:00" itemprop="dateCreated datePublished" datetime="2026-06-02T00:00:00+08:00">2026-06-02</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>781</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>3 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>在 DevOps 流程中，及时的消息通知对于团队协作至关重要。虽然 GitLab 自带了一些集成，但往往难以满足个性化的通知需求。本文将介绍如何利用阿里云函数计算（FC）搭建一个轻量、低成本且高度可定制的 GitLab Webhook 转发服务，将代码提交、合并请求、Pipeline 状态等实时推送到钉钉群。<span id="more"></span></p>
+<h2 id="为什么选择云函数"><a class="markdownIt-Anchor" href="#为什么选择云函数"></a> 为什么选择云函数？</h2>
+<ol>
+<li><strong>低成本</strong>：按需计费，对于低频的 Webhook 请求，几乎可以免费使用。</li>
+<li><strong>免运维</strong>：无需购买和维护服务器。</li>
+<li><strong>高定制</strong>：可以根据 GitLab 发送的 Payload 自由编写逻辑，过滤无关通知或格式化消息。</li>
+</ol>
+<h2 id="环境准备"><a class="markdownIt-Anchor" href="#环境准备"></a> 环境准备</h2>
+<ol>
+<li><strong>钉钉机器人</strong>：在钉钉群中添加自定义机器人，获取 <code>Webhook</code> 地址和 <code>加签 Secret</code>。</li>
+<li><strong>阿里云账号</strong>：开通函数计算服务。</li>
+<li><strong>GitLab 项目</strong>：拥有配置 Webhook 的权限。</li>
+</ol>
+<h2 id="代码实现"><a class="markdownIt-Anchor" href="#代码实现"></a> 代码实现</h2>
+<p>我们使用 Python 编写云函数，并使用 <code>dingtalkchatbot</code> 库来简化钉钉消息的发送。</p>
+<h3 id="1-核心逻辑"><a class="markdownIt-Anchor" href="#1-核心逻辑"></a> 1. 核心逻辑</h3>
+<p>函数需要处理 GitLab 发送的 JSON 数据，并根据 <code>object_kind</code> 区分事件类型。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> json</span><br><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> base64</span><br><span class="line"><span class="keyword">from</span> dingtalkchatbot.chatbot <span class="keyword">import</span> DingtalkChatbot</span><br><span class="line"></span><br><span class="line"><span class="comment"># 初始化钉钉机器人</span></span><br><span class="line">DINGTALK_WEBHOOK = os.getenv(<span class="string">&#x27;DINGTALK_WEBHOOK&#x27;</span>)</span><br><span class="line">DINGTALK_SECRET = os.getenv(<span class="string">&#x27;DINGTALK_SECRET&#x27;</span>)</span><br><span class="line">webhook = DingtalkChatbot(DINGTALK_WEBHOOK, secret=DINGTALK_SECRET)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">handler</span>(<span class="params">event, context</span>):</span><br><span class="line">    <span class="comment"># 处理 API 网关或 HTTP 触发器的事件</span></span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">isinstance</span>(event, <span class="built_in">bytes</span>):</span><br><span class="line">        event_dict = json.loads(event.decode(<span class="string">&#x27;utf-8&#x27;</span>))</span><br><span class="line">    <span class="keyword">else</span>:</span><br><span class="line">        event_dict = event</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 验证 GitLab Token</span></span><br><span class="line">    headers = event_dict.get(<span class="string">&#x27;headers&#x27;</span>, &#123;&#125;)</span><br><span class="line">    gitlab_token = headers.get(<span class="string">&#x27;X-Gitlab-Token&#x27;</span>) <span class="keyword">or</span> headers.get(<span class="string">&#x27;x-gitlab-token&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> gitlab_token != os.getenv(<span class="string">&#x27;GITLAB_TOKEN&#x27;</span>):</span><br><span class="line">        <span class="keyword">return</span> &#123;<span class="string">&#x27;statusCode&#x27;</span>: <span class="number">403</span>, <span class="string">&#x27;body&#x27;</span>: <span class="string">&#x27;Forbidden&#x27;</span>&#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># 解析 Payload</span></span><br><span class="line">    body_str = event_dict.get(<span class="string">&#x27;body&#x27;</span>, <span class="string">&#x27;&#x27;</span>)</span><br><span class="line">    <span class="keyword">if</span> event_dict.get(<span class="string">&#x27;isBase64Encoded&#x27;</span>, <span class="literal">False</span>):</span><br><span class="line">        body_str = base64.b64decode(body_str).decode(<span class="string">&#x27;utf-8&#x27;</span>)</span><br><span class="line">    payload = json.loads(body_str)</span><br><span class="line"></span><br><span class="line">    kind = payload.get(<span class="string">&#x27;object_kind&#x27;</span>)</span><br><span class="line">    </span><br><span class="line">    <span class="comment"># 根据事件类型调用不同的消息构建函数</span></span><br><span class="line">    <span class="keyword">if</span> kind == <span class="string">&#x27;push&#x27;</span>:</span><br><span class="line">        <span class="comment"># 处理 Push 事件...</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="keyword">elif</span> kind == <span class="string">&#x27;merge_request&#x27;</span>:</span><br><span class="line">        <span class="comment"># 处理 Merge Request 事件...</span></span><br><span class="line">        <span class="keyword">pass</span></span><br><span class="line">    <span class="comment"># ... 其他事件处理</span></span><br><span class="line">    </span><br><span class="line">    <span class="keyword">return</span> &#123;<span class="string">&#x27;statusCode&#x27;</span>: <span class="number">200</span>, <span class="string">&#x27;body&#x27;</span>: <span class="string">&#x27;OK&#x27;</span>&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="2-事件处理细节"><a class="markdownIt-Anchor" href="#2-事件处理细节"></a> 2. 事件处理细节</h3>
+<p>为了避免消息轰炸，我们在代码中加入了一些启发式逻辑：</p>
+<ul>
+<li><strong>合并去重</strong>：如果是由于 MR 合并产生的 Push，通常不需要再次通知，可以通过检查提交信息中的关键词来过滤。</li>
+<li><strong>失败提醒</strong>：对于 Job/Build 任务，通常只关心失败的情况。</li>
+<li><strong>Tag 过滤</strong>：过滤掉 Tag 删除的通知。</li>
+</ul>
+<h2 id="部署步骤"><a class="markdownIt-Anchor" href="#部署步骤"></a> 部署步骤</h2>
+<h3 id="1-阿里云函数计算配置"><a class="markdownIt-Anchor" href="#1-阿里云函数计算配置"></a> 1. 阿里云函数计算配置</h3>
+<ol>
+<li>创建函数，选择 <strong>Python 3.10</strong> 运行时。</li>
+<li>配置 <strong>HTTP 触发器</strong>。</li>
+<li>设置环境变量：
+<ul>
+<li><code>DINGTALK_WEBHOOK</code>: 钉钉机器人地址。</li>
+<li><code>DINGTALK_SECRET</code>: 钉钉机器人加签密钥。</li>
+<li><code>GITLAB_TOKEN</code>: 自定义的 Secret Token，用于 GitLab 验证。</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-gitlab-webhook-配置"><a class="markdownIt-Anchor" href="#2-gitlab-webhook-配置"></a> 2. GitLab Webhook 配置</h3>
+<ol>
+<li>进入 GitLab 项目设置 -&gt; Webhooks。</li>
+<li><strong>URL</strong>: 填写阿里云函数的触发器地址。</li>
+<li><strong>Secret token</strong>: 填写与云函数环境变量 <code>GITLAB_TOKEN</code> 相同的值。</li>
+<li>选择触发事件：<code>Push events</code>, <code>Merge request events</code>, <code>Tag push events</code>, <code>Pipeline events</code>, <code>Job events</code>。</li>
+</ol>
+<h2 id="总结"><a class="markdownIt-Anchor" href="#总结"></a> 总结</h2>
+<p>通过阿里云函数计算，我们以极低的成本实现了一个功能强大的 GitLab 通知机器人。代码中可以根据实际需求进一步扩展，例如根据分支名发送到不同的钉钉群，或者在消息中加入更丰富的项目元数据。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/DevOps/" rel="tag"># DevOps</a>
+              <a href="/tags/Serverless/" rel="tag"># Serverless</a>
+              <a href="/tags/Python/" rel="tag"># Python</a>
+              <a href="/tags/GitLab/" rel="tag"># GitLab</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/articles/2025/DOTA2%20TI14.html" rel="prev" title="DOTA2 TI14新赛制与往年分组赛程对比深度分析">
+                  <i class="fa fa-chevron-left"></i> DOTA2 TI14新赛制与往年分组赛程对比深度分析
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/articles/2026/elevator-algorithm.html" rel="next" title="电梯为什么不马上来：从 LOOK 到群控调度算法">
+                  电梯为什么不马上来：从 LOOK 到群控调度算法 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zNjU5OS8xMzEzNA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">actpi</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">48k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">2:55</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>

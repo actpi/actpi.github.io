@@ -130,13 +130,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">56</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">21</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -161,6 +161,596 @@
     </div>
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/python%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E5%90%8E%E7%BC%80.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/python%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E5%90%8E%E7%BC%80.html" class="post-title-link" itemprop="url">从任意目录查询指定后缀的文件并返回对应完整路径</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-15 09:42:16" itemprop="dateCreated datePublished" datetime="2023-08-15T09:42:16+08:00">2023-08-15</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>137</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="用于在指定路径查询日志文件并返回对应的完整路径列表"><a class="markdownIt-Anchor" href="#用于在指定路径查询日志文件并返回对应的完整路径列表"></a> 用于在指定路径查询日志文件并返回对应的完整路径列表</h2>
+<h3 id="用-os-path"><a class="markdownIt-Anchor" href="#用-os-path"></a> 用 os path</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_log_file</span>(<span class="params">log_dir</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    从指定目录查找后缀为 .log 的文件</span></span><br><span class="line"><span class="string">    :param log_dir: 待查找的目录</span></span><br><span class="line"><span class="string">    :return: 返回所有的 .log 文件路径列表</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    log_files = []</span><br><span class="line">    <span class="keyword">for</span> root, dirs, files <span class="keyword">in</span> os.walk(log_dir):</span><br><span class="line">        <span class="keyword">for</span> file <span class="keyword">in</span> files:</span><br><span class="line">            <span class="keyword">if</span> file.endswith(<span class="string">&quot;.log&quot;</span>):</span><br><span class="line">                log_files.append(os.path.join(root,file))</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> log_files</span><br></pre></td></tr></table></figure>
+<h3 id="用-pathlib"><a class="markdownIt-Anchor" href="#用-pathlib"></a> 用 pathlib</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">get_log_file</span>(<span class="params">rootdir</span>):</span><br><span class="line">    log_files = []</span><br><span class="line">    root_path = Path(rootdir)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;---&gt;开始到算例库查找算例文件: &quot;</span>)</span><br><span class="line">    <span class="comment">### find inp</span></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> root_path.rglob(<span class="string">&#x27;*.log&#x27;</span>):</span><br><span class="line">        log_files.append(file)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> log_files</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>改动 <code>if file.endswith(&quot;.log&quot;)</code> 可查找任意后缀的文件。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/gitlab_deploy_release.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/gitlab_deploy_release.html" class="post-title-link" itemprop="url">GitLab CI 自动发布 Release 版本包</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-18 00:00:00" itemprop="dateCreated datePublished" datetime="2023-07-18T00:00:00+08:00">2023-07-18</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>237</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="需求"><a class="markdownIt-Anchor" href="#需求"></a> 需求</h2>
+<p>当向 gitlab 推送 tag 时自动生成 Release 发布包的自动 CI 功能</p>
+<h2 id="实现"><a class="markdownIt-Anchor" href="#实现"></a> 实现</h2>
+<p>首先在对应仓库生成一个 Project Access Token，授权 api 和 write_repository 权限，然后在仓库的设置-CI/CD 新增 Variable 名称为 ACCESS_TOKEN、值为上一步生成的 Token。</p>
+<ol>
+<li>
+<p>当有推送 tag 时、自动触发 gitlab CI 任务<br />
+编写 CI 配置文件 .gitlab-ci.yml</p>
+ <figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">Create_Release:</span></span><br><span class="line"><span class="attr">stage:</span> <span class="string">deploy</span></span><br><span class="line"><span class="attr">tags:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">runner</span> <span class="comment"># 指定runner</span></span><br><span class="line"><span class="attr">only:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">tags</span> <span class="comment"># 仅对推送 tag 时触发</span></span><br><span class="line"><span class="attr">script:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="string">bash</span> <span class="string">deploy_release.sh</span></span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/articles/2023/gitlab_deploy_release.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/git-netlify-blog.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/git-netlify-blog.html" class="post-title-link" itemprop="url">记录用 Netlify 来构建并发布 hexo 博客</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-30 00:00:00" itemprop="dateCreated datePublished" datetime="2023-06-30T00:00:00+08:00">2023-06-30</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>399</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="前言"><a class="markdownIt-Anchor" href="#前言"></a> 前言</h2>
+<p>鉴于网络原因 github page 访问加载速度很慢，同时伴随不定时的无法访问，让访问博客的流畅度大受影响。为了保持访问速度和稳定性于是打算将博客使用 Netlify 来构建和发布hexo博客。</p>
+<h2 id="步骤"><a class="markdownIt-Anchor" href="#步骤"></a> 步骤</h2>
+<p><a target="_blank" rel="noopener" href="https://www.netlify.com/">Netlify</a> 是一个提供静态资源网络托管的综合平台，提供CI服务，能够将托管 GitHub，GitLab 等网站上的 Jekyll，Hexo，Hugo 等代码自动编译并生成静态网站。</p>
+<p>Netlify 有如下的功能:</p>
+<ul>
+<li>能够托管服务，免费 CDN</li>
+<li>能够绑定自定义域名</li>
+<li>能够启用免费的TLS证书，启用HTTPS</li>
+<li>支持自动构建</li>
+<li>提供 Webhooks 和 API
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/articles/2023/git-netlify-blog.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/git-action-blog.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/git-action-blog.html" class="post-title-link" itemprop="url">用 github私有仓库保存 hexo 源码，并通过 actions 发布到公共仓库的 gitpage</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-26 00:00:00" itemprop="dateCreated datePublished" datetime="2023-06-26T00:00:00+08:00">2023-06-26</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>654</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>2 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="起始缘由"><a class="markdownIt-Anchor" href="#起始缘由"></a> 起始缘由</h2>
+<p>原本博客的发布方式为：</p>
+<ol>
+<li>在本地部署好 Hexo 博客的运行环境</li>
+<li>通过 [hexo g] 将写好的 Markdown 文件转化为 HTML 文件</li>
+<li>然后用 [hexo d] 把生成的 public 文件夹内所有内容推送到 Github 仓库中</li>
+</ol>
+<p>这样直接将生成的可以运行的实际产物（生产版）推送到 GitHub 仓库上，而不是博客源码（开发版），每当本地环境变更或者想在别的电脑上写文章时就麻烦了、必须得重新部署一遍环境，而且也不会留存历史变更记录。详细参见之前的博文:<a href="https://blog.actpi.com/articles/hexo-git-cname.html">用 hexo + gitpage 搭建博客以及 gitpage 绑定自定义域名</a>。</p>
+<p>由此想到，何不把博客源码推送到 Github 仓库中，利用 GitHub 来对源码进行版本控制，同时也利于博客未来的维护、更新！以下就是折腾记录。
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/articles/2023/git-action-blog.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/gcc-toolset.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/gcc-toolset.html" class="post-title-link" itemprop="url">centos下GCC多版本管理</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-21 00:00:00" itemprop="dateCreated datePublished" datetime="2023-06-21T00:00:00+08:00">2023-06-21</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>221</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="需求"><a class="markdownIt-Anchor" href="#需求"></a> 需求</h2>
+<p>CentOS 7 的版本安装好之后默认自带的是 gcc 4.8，为了支持编译 c++ 的更高版本需要安装高版本的 gcc，<br />
+由于手动下载编译高版本可能会导致一些不可预料的意外情况，故采用安装 devtoolset工 具来解决。</p>
+<h2 id="安装步骤"><a class="markdownIt-Anchor" href="#安装步骤"></a> 安装步骤</h2>
+<ol>
+<li>
+<p>安装 centos-release-scl<br />
+<code>sudo yum install -y centos-release-scl</code></p>
+</li>
+<li>
+<p>安装 devtoolset，这里可自行对照选择相应的版本号<br />
+<code>sudo yum install -y devtoolset-8</code></p>
+</li>
+<li>
+<p>激活 gcc 环境</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当前终端生效，临时使用一次的情况</span></span><br><span class="line">scl <span class="built_in">enable</span> devtoolset-8 bash</span><br><span class="line"><span class="comment"># 永久生效，写入 /etc/profile</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;source /opt/rh/devtoolset-8/enable&quot;</span> &gt;&gt; /etc/profile</span><br><span class="line"><span class="built_in">source</span> /etc/profile</span><br></pre></td></tr></table></figure>
+</li>
+<li>
+<p>验证结果<br />
+<code>gcc -V</code></p>
+</li>
+</ol>
+<h2 id="yum-error"><a class="markdownIt-Anchor" href="#yum-error"></a> yum error</h2>
+<p>安装 centos-release-scl 后yum 报错：Cannot find a valid baseurl for repo: centos-sclo-rh/x86_64</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> /etc/yum.repos.d/</span><br><span class="line">vim centos-sclo-rh.repo</span><br><span class="line"></span><br><span class="line">注释 mirrorlist 行</span><br><span class="line">baseurl 修改为：baseurl=http://vault.centos.org/centos/7/sclo/<span class="variable">$basearch</span>/rh/</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/compile_mumps.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/compile_mumps.html" class="post-title-link" itemprop="url">Windows下编译 Mumps Solver</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-05-10 15:12:16" itemprop="dateCreated datePublished" datetime="2023-05-10T15:12:16+08:00">2023-05-10</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>982</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>4 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="简介"><a class="markdownIt-Anchor" href="#简介"></a> 简介</h2>
+<p>MUMPS Solver 是一种用于求解大规模线性方程组的开源软件，Mumps官网：<a target="_blank" rel="noopener" href="https://mumps-solver.org">https://mumps-solver.org</a>，获取 MUMPS Solver 源代码可在<a target="_blank" rel="noopener" href="https://mumps-solver.org/index.php?page=dwnld">https://mumps-solver.org/index.php?page=dwnld</a> 提交信息后获取。</p>
+<h2 id="编译前提"><a class="markdownIt-Anchor" href="#编译前提"></a> 编译前提</h2>
+<ul>
+<li>cmake</li>
+<li>ninja 编译器</li>
+<li>OneApi_base_toolkit  —提供C、C++编译器与 MKL</li>
+<li>OneApi_hpc_toolkit   —提供Fortran编译器与 MPI
+          <!--noindex-->
+            <div class="post-button">
+              <a class="btn" href="/articles/2023/compile_mumps.html#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          <!--/noindex-->
+        
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -208,7 +798,7 @@
         <i class="far fa-file-word"></i>
       </span>
       <span class="post-meta-item-text">本文字数：</span>
-      <span>421</span>
+      <span>420</span>
     </span>
     <span class="post-meta-item" title="阅读时长">
       <span class="post-meta-item-icon">
@@ -228,7 +818,7 @@
     <div class="post-body" itemprop="articleBody">
           <h2 id="前期准备"><a class="markdownIt-Anchor" href="#前期准备"></a> 前期准备</h2>
 <ol>
-<li>下载安装文件压缩包与 License 文件，<a target="_blank" rel="noopener" href="https://drive.litosim.dev/#file_id=748903684355701833">Abaqus6.14-4.zip</a> 后解压</li>
+<li>下载安装文件压缩包与 License 文件，<a target="_blank" rel="noopener" href="https://pan.baidu.com/s/1a35fLRFG5mSHUlbXJCpM_g">Abaqus6.14-4</a> 后解压</li>
 <li>创建安装目录备用 <code>mkdir -p /opt/Abaqus/&#123;exe,tmp,license,workspace,test_case&#125;</code>
           <!--noindex-->
             <div class="post-button">
@@ -534,580 +1124,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2022/pure-bash-bible.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2022/pure-bash-bible.html" class="post-title-link" itemprop="url">Shell 脚本零碎笔记2</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-11-18 00:00:00" itemprop="dateCreated datePublished" datetime="2022-11-18T00:00:00+08:00">2022-11-18</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>720</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="一个纯bash实现外部命令的脚本集合"><a class="markdownIt-Anchor" href="#一个纯bash实现外部命令的脚本集合"></a> 一个纯bash实现外部命令的脚本集合</h2>
-<h2 id="读取文件到一个字符串中"><a class="markdownIt-Anchor" href="#读取文件到一个字符串中"></a> 读取文件到一个字符串中</h2>
-<p>替代 <code>cat</code> 命令.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">file_data=&quot;$(&lt;&quot;file&quot;)&quot;</span><br></pre></td></tr></table></figure>
-<h2 id="创建一个空文件"><a class="markdownIt-Anchor" href="#创建一个空文件"></a> 创建一个空文件</h2>
-<p>替代 <code>touch</code>.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">简短的方式.</span></span><br><span class="line"><span class="meta prompt_">&gt;</span><span class="language-bash">file</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2022/pure-bash-bible.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2022/centos_cmake_vscode.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2022/centos_cmake_vscode.html" class="post-title-link" itemprop="url">Centos7系统用 VSCode 编译和调试 C++ 源码</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-10-21 00:00:00" itemprop="dateCreated datePublished" datetime="2022-10-21T00:00:00+08:00">2022-10-21</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>340</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="安装-cmake"><a class="markdownIt-Anchor" href="#安装-cmake"></a> 安装 CMake</h2>
-<ol>
-<li>
-<p>安装gcc等依赖程序<br />
-<code>yum install -y gcc gcc-c++ wget</code></p>
-</li>
-<li>
-<p>获取CMake源码包<br />
-<code>wget https://cmake.org/files/v3.23/cmake-3.23.2.tar.gz</code></p>
-</li>
-<li>
-<p>解压并安装</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">tar -xzvf cmake-3.23.2.tar.gz</span><br><span class="line">cd cmake-3.23.2</span><br><span class="line">./bootstrap </span><br><span class="line">gmake &amp;&amp; install</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2022/centos_cmake_vscode.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2022/Centos-vnc.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2022/Centos-vnc.html" class="post-title-link" itemprop="url">Centos7 安装 VNC远程桌面服务</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-09-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-09-12T00:00:00+08:00">2022-09-12</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>350</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="安装桌面环境"><a class="markdownIt-Anchor" href="#安装桌面环境"></a> 安装桌面环境</h2>
-<p>!!! info<br />
-安装了Centos任意桌面版可跳过此步骤</p>
-<p>服务依赖于桌面环境的运行，CentOS7 默认最小安装是不带桌面环境的，所以安装 VNC 之前需要首先安装桌面环境</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 安装 GNOME 桌面环境</span></span></span><br><span class="line"> sudo yum groupinstall &quot;GNOME Desktop&quot;</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 设置默认启动方式为界面启动</span></span></span><br><span class="line"> sudo ln -sf /lib/systemd/system/graphical.target /etc/systemd/system/default.target</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash"><span class="comment"># 重启服务器</span></span></span><br><span class="line"> sudo reboot</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2022/Centos-vnc.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2022/gitlab-ci%E9%80%9A%E8%BF%87%E9%92%89%E9%92%89%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2022/gitlab-ci%E9%80%9A%E8%BF%87%E9%92%89%E9%92%89%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.html" class="post-title-link" itemprop="url">GitLab-CI 通过钉钉发送消息</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-08-09 00:00:00" itemprop="dateCreated datePublished" datetime="2022-08-09T00:00:00+08:00">2022-08-09</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>384</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>1 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在使用Gitlab进行CI/CD的时候，希望在任务结束的时候(成功或失败)能有对应的消息通知机制， 通过钉钉发送消息。</p>
-<h2 id="前提"><a class="markdownIt-Anchor" href="#前提"></a> 前提</h2>
-<p>钉钉群添加机器人获取token,secret 备用
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2022/gitlab-ci%E9%80%9A%E8%BF%87%E9%92%89%E9%92%89%E5%8F%91%E9%80%81%E6%B6%88%E6%81%AF.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2021/shellnotes.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2021/shellnotes.html" class="post-title-link" itemprop="url">Shell 脚本零碎笔记</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-10-22 00:00:00" itemprop="dateCreated datePublished" datetime="2021-10-22T00:00:00+08:00">2021-10-22</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.3k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>5 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="set的基本用法写出更安全的-bash-脚本"><a class="markdownIt-Anchor" href="#set的基本用法写出更安全的-bash-脚本"></a> set的基本用法，写出更安全的 Bash 脚本</h2>
-<ul>
-<li><code>set -u</code>:  脚本在头部加上它，遇到不存在的变量就会报错，并停止执行</li>
-<li><code>set -x</code>:   用来在运行结果之前，先输出执行的那一行命</li>
-<li><code>set -e</code>:   它使得脚本只要发生错误，就终止执行<br />
-某些命令的非零返回值可能不表示失败，或者开发者希望在命令失败的情况下，脚本继续执行下去。这时可以暂时关闭 <code>set +e</code>，该命令执行结束后，再重新打开<code>set -e</code>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2021/shellnotes.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2021/supervisor-install.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2021/supervisor-install.html" class="post-title-link" itemprop="url">在 Linux 系统安装 Supervisor 来管理进程</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2021-07-19 00:00:00" itemprop="dateCreated datePublished" datetime="2021-07-19T00:00:00+08:00">2021-07-19</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>736</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>3 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="服务介绍"><a class="markdownIt-Anchor" href="#服务介绍"></a> 服务介绍</h2>
-<p><a target="_blank" rel="noopener" href="http://supervisord.org/">Supervisor</a> 是用 Python 开发的一个 client/server 服务，是 Linux/Unix 系统下的一个进程管理工具，不支持 Windows 系统。它可以很方便的监听、启动、停止、重启一个或多个进程。用 Supervisor 管理的进程，当一个进程意外被杀死，supervisort 监听到进程死后，会自动将它重新拉起，很方便的做到进程自动恢复的功能，不再需要自己写shell脚本来控制。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2021/supervisor-install.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 </div>
@@ -1119,7 +1137,7 @@
 
 <div class="copyright">
   &copy; 2017 – 
-  <span itemprop="copyrightYear">2024</span>
+  <span itemprop="copyrightYear">2026</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
@@ -1131,14 +1149,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">31k</span>
+    <span title="站点总字数">48k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:52</span>
+    <span title="站点阅读时长">2:55</span>
   </span>
 </div>
 <div class="busuanzi-count">
