@@ -122,7 +122,7 @@
         <div class="site-overview-wrap sidebar-panel">
           <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <img class="site-author-image" itemprop="image" alt="actpi"
-      src="/images/avatar.jpg">
+      src="/images/brand/actpi-avatar.png">
   <p class="site-author-name" itemprop="name">actpi</p>
   <div class="site-description" itemprop="description">Records some think,and some experience,or just mean to write it.</div>
 </div>
@@ -130,13 +130,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">56</span>
+          <span class="site-state-item-count">57</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-tags">
           <a href="/tags/">
-        <span class="site-state-item-count">21</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -170,10 +170,102 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/jenkins_shell.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/articles/2023/jenkins_shell.html" class="post-title-link" itemprop="url">Jenkins 执行 Shell 脚本时不能抓取异常退出码的问题解决</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-16 00:00:00" itemprop="dateCreated datePublished" datetime="2023-08-16T00:00:00+08:00">2023-08-16</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>283</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>1 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="问题描述"><a class="markdownIt-Anchor" href="#问题描述"></a> 问题描述</h2>
+<p>如下 Shell 脚本：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_">#</span><span class="language-bash">!/bin/bash</span></span><br><span class="line">do somothing</span><br><span class="line"></span><br><span class="line">python script.py</span><br><span class="line"><span class="meta prompt_">#</span><span class="language-bash">获取Python命令的退出码</span></span><br><span class="line">e_code=$?</span><br><span class="line">if [ $e_code -noteq 0 ];then</span><br><span class="line">    echo &quot;python script.py failed, exit code is $e_code&quot;</span><br><span class="line">    exit 1001</span><br><span class="line">else</span><br><span class="line">    echo &quot;python script.py success&quot;</span><br><span class="line">    exit 0</span><br><span class="line">fi</span><br></pre></td></tr></table></figure>
+<p>在 Jenkins 中执行此脚本时，通过 Shell 调用了 Python 脚本，当 Python 脚本内部异常退出例如遇到 <code>sys.exit(1001)</code>，导致异常退出码无法抓取。</p>
+<h2 id="原因及解决"><a class="markdownIt-Anchor" href="#原因及解决"></a> 原因及解决</h2>
+<p>这是由于 Jenkins 在执行 shell 脚本时，默认会在命令行中加上 <code>-e</code> 选项，该选项的作用是在脚本中遇到错误时会立即退出。这样可以确保在脚本发生错误时及时停止执行，避免继续执行可能导致更严重问题的命令。</p>
+<blockquote>
+<p>在 Shell 脚本前手动添加  <code>set +e</code>  来禁用该选项。即可继续执行后续命令。</p>
+</blockquote>
+<p>PS：Jenkins 在执行 shell 脚本时，默认会在命令行中加上 <code>-xe</code> 选项, 该选项的作用是在脚本运行时打印每一行命令以及运行中遇到错误时会立即退出。这样可以确保在脚本发生错误立即中断。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/python%E6%9F%A5%E6%89%BE%E6%8C%87%E5%AE%9A%E5%90%8E%E7%BC%80.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -263,7 +355,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/gitlab_deploy_release.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -361,7 +453,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/git-netlify-blog.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -461,7 +553,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/git-action-blog.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -559,7 +651,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/gcc-toolset.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -666,7 +758,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/compile_mumps.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -763,7 +855,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/install_abaqus_linux.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -856,7 +948,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/extend_fs.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -949,7 +1041,7 @@
     <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/%E8%87%AA%E5%8A%A8%E5%90%88%E5%B9%B6%E5%88%86%E6%94%AF%E7%9A%84GitLabCI%E5%AE%9E%E7%8E%B0.html">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
       <meta itemprop="name" content="actpi">
     </span>
 
@@ -1033,97 +1125,6 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2023/gitlab-ci.html">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="actpi">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="ActPi's Blog">
-      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | ActPi's Blog">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/articles/2023/gitlab-ci.html" class="post-title-link" itemprop="url">GitLab CI 自动流程简述</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-02-15 09:42:16" itemprop="dateCreated datePublished" datetime="2023-02-15T09:42:16+08:00">2023-02-15</time>
-    </span>
-
-  
-    <span class="post-meta-item" title="本文字数">
-      <span class="post-meta-item-icon">
-        <i class="far fa-file-word"></i>
-      </span>
-      <span class="post-meta-item-text">本文字数：</span>
-      <span>1.2k</span>
-    </span>
-    <span class="post-meta-item" title="阅读时长">
-      <span class="post-meta-item-icon">
-        <i class="far fa-clock"></i>
-      </span>
-      <span class="post-meta-item-text">阅读时长 &asymp;</span>
-      <span>4 分钟</span>
-    </span>
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h2 id="什么是-gitlab-ci"><a class="markdownIt-Anchor" href="#什么是-gitlab-ci"></a> 什么是 GitLab CI</h2>
-<p>GitLab CI 是GitLab内置的进行持续集成的工具，只需要在仓库根目录下创建 <code>.gitlab-ci.yml</code> 文件，并配置GitLab Runner；每次提交代码的时候，gitlab 将自动识别并且使用 GitLab Runner 执行任务。
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/articles/2023/gitlab-ci.html#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
     <a class="extend prev" rel="prev" title="上一页" aria-label="上一页" href="/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" title="下一页" aria-label="下一页" href="/page/3/"><i class="fa fa-angle-right"></i></a>
   </nav>
@@ -1149,14 +1150,14 @@
       <i class="fa fa-chart-line"></i>
     </span>
       <span>站点总字数：</span>
-    <span title="站点总字数">48k</span>
+    <span title="站点总字数">50k</span>
   </span>
   <span class="post-meta-item">
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span>站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:55</span>
+    <span title="站点阅读时长">3:03</span>
   </span>
 </div>
 <div class="busuanzi-count">

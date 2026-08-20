@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.3.0">
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="https://fonts.loli.net/css?family=Lato:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha256-HtsXJanqjKTc8vVQjO4YMhiqFoXkfBsjBWcX91T1jr8=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" integrity="sha256-Vzbj7sDDS/woiFS3uNKo8eIuni59rjyNGtXfstRzStA=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/themes/blue/pace-theme-minimal.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js" integrity="sha256-gqd7YTjg/BtfqWSwsJOvndl0Bxc8gFImLEkXQT8+qj0=" crossorigin="anonymous"></script>
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"blog.actpi.com","root":"/","images":"/images","scheme":"Gemini","darkmode":false,"version":"8.16.0","exturl":false,"sidebar":{"position":"right","display":"post","padding":18,"offset":12},"copycode":{"enable":false,"style":null},"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"menu_item":"fadeInDown","post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="Codex 的会话越来越多以后，VS Code 侧栏中的最近会话会混在一起：在 A 项目里也能看到 B、C 项目的线程。GitHub issue Workspace-scoped thread history 提出的目标很直接——默认只看当前工作区，同时保留一个查看全部线程的入口。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="让 Codex VS Code 会话历史按当前工作区显示：可恢复、可重复应用的本地补丁">
+<meta property="og:url" content="http://blog.actpi.com/articles/2026/codex-vscode-workspace-thread-history.html">
+<meta property="og:site_name" content="ActPi&#39;s Blog">
+<meta property="og:description" content="Codex 的会话越来越多以后，VS Code 侧栏中的最近会话会混在一起：在 A 项目里也能看到 B、C 项目的线程。GitHub issue Workspace-scoped thread history 提出的目标很直接——默认只看当前工作区，同时保留一个查看全部线程的入口。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2026-08-19T16:00:00.000Z">
+<meta property="article:modified_time" content="2026-08-20T03:16:56.253Z">
+<meta property="article:author" content="actpi">
+<meta property="article:tag" content="Codex">
+<meta property="article:tag" content="VS Code">
+<meta property="article:tag" content="PowerShell">
+<meta property="article:tag" content="工具">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="http://blog.actpi.com/articles/2026/codex-vscode-workspace-thread-history.html">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"http://blog.actpi.com/articles/2026/codex-vscode-workspace-thread-history.html","path":"articles/2026/codex-vscode-workspace-thread-history.html","title":"让 Codex VS Code 会话历史按当前工作区显示：可恢复、可重复应用的本地补丁"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>让 Codex VS Code 会话历史按当前工作区显示：可恢复、可重复应用的本地补丁 | ActPi's Blog</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-108110955-1"></script>
+  <script class="next-config" data-name="google_analytics" type="application/json">{"tracking_id":"UA-108110955-1","only_pageview":false}</script>
+  <script src="/js/third-party/analytics/google-analytics.js"></script>
+
+
+
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <div class="column">
+      <header class="header" itemscope itemtype="http://schema.org/WPHeader"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+        <span class="toggle-line"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">ActPi's Blog</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">Share & Record</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger" aria-label="搜索" role="button">
+    </div>
+  </div>
+</div>
+
+
+
+<nav class="site-nav">
+  <ul class="main-menu menu"><li class="menu-item menu-item-home"><a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a></li><li class="menu-item menu-item-tags"><a href="/tags/" rel="section"><i class="fa fa-tag fa-fw"></i>标签</a></li><li class="menu-item menu-item-archives"><a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a></li>
+  </ul>
+</nav>
+
+
+
+
+</header>
+        
+  
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%83%B3%E5%AE%9E%E7%8E%B0%E4%BB%80%E4%B9%88"><span class="nav-number">1.</span> <span class="nav-text"> 想实现什么</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E9%94%AE%E5%8F%91%E7%8E%B0%E5%8D%8F%E8%AE%AE%E5%B7%B2%E7%BB%8F%E6%94%AF%E6%8C%81-cwd"><span class="nav-number">2.</span> <span class="nav-text"> 关键发现：协议已经支持 cwd</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E7%94%A8%E8%A1%A5%E4%B8%81%E8%84%9A%E6%9C%AC%E8%80%8C%E4%B8%8D%E6%98%AF%E6%89%8B%E5%B7%A5%E6%94%B9%E5%8E%8B%E7%BC%A9%E5%90%8E%E7%9A%84-javascript"><span class="nav-number">3.</span> <span class="nav-text"> 为什么要用补丁脚本，而不是手工改压缩后的 JavaScript</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E8%BD%BD%E7%A6%BB%E7%BA%BF%E8%A1%A5%E4%B8%81"><span class="nav-number">4.</span> <span class="nav-text"> 下载离线补丁</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%96%B9%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text"> 使用方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%81%A2%E5%A4%8D%E5%AE%98%E6%96%B9%E6%96%87%E4%BB%B6"><span class="nav-number">6.</span> <span class="nav-text"> 恢复官方文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%A9%E5%B1%95%E6%9B%B4%E6%96%B0%E4%BB%A5%E5%90%8E%E6%80%8E%E4%B9%88%E5%8A%9E"><span class="nav-number">7.</span> <span class="nav-text"> 扩展更新以后怎么办</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E7%9F%A5%E9%99%90%E5%88%B6"><span class="nav-number">8.</span> <span class="nav-text"> 已知限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E5%A4%8D%E7%94%A8%E6%8F%90%E7%A4%BA%E8%AF%8D"><span class="nav-number">9.</span> <span class="nav-text"> 可复用提示词</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="actpi"
+      src="/images/brand/actpi-avatar.png">
+  <p class="site-author-name" itemprop="name">actpi</p>
+  <div class="site-description" itemprop="description">Records some think,and some experience,or just mean to write it.</div>
+</div>
+<div class="site-state-wrap animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">57</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+          <a href="/tags/">
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author animated">
+      <span class="links-of-author-item">
+        <a href="https://github.com/actpi" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;actpi" rel="noopener me" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:actpi@qq.com" title="E-Mail → mailto:actpi@qq.com" rel="noopener me" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+        </div>
+      </div>
+    </div>
+
+    
+  </aside>
+
+
+    </div>
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://blog.actpi.com/articles/2026/codex-vscode-workspace-thread-history.html">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/brand/actpi-avatar.png">
+      <meta itemprop="name" content="actpi">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="ActPi's Blog">
+      <meta itemprop="description" content="Records some think,and some experience,or just mean to write it.">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="让 Codex VS Code 会话历史按当前工作区显示：可恢复、可重复应用的本地补丁 | ActPi's Blog">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          让 Codex VS Code 会话历史按当前工作区显示：可恢复、可重复应用的本地补丁
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2026-08-20 00:00:00" itemprop="dateCreated datePublished" datetime="2026-08-20T00:00:00+08:00">2026-08-20</time>
+    </span>
+
+  
+    <span class="post-meta-item" title="阅读次数" id="busuanzi_container_page_pv">
+      <span class="post-meta-item-icon">
+        <i class="far fa-eye"></i>
+      </span>
+      <span class="post-meta-item-text">阅读次数：</span>
+      <span id="busuanzi_value_page_pv"></span>
+    </span>
+    <span class="post-meta-item" title="本文字数">
+      <span class="post-meta-item-icon">
+        <i class="far fa-file-word"></i>
+      </span>
+      <span class="post-meta-item-text">本文字数：</span>
+      <span>2.2k</span>
+    </span>
+    <span class="post-meta-item" title="阅读时长">
+      <span class="post-meta-item-icon">
+        <i class="far fa-clock"></i>
+      </span>
+      <span class="post-meta-item-text">阅读时长 &asymp;</span>
+      <span>8 分钟</span>
+    </span>
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody"><p>Codex 的会话越来越多以后，VS Code 侧栏中的最近会话会混在一起：在 A 项目里也能看到 B、C 项目的线程。GitHub issue <a target="_blank" rel="noopener" href="https://github.com/openai/codex/issues/25319">Workspace-scoped thread history</a> 提出的目标很直接——默认只看当前工作区，同时保留一个查看全部线程的入口。<span id="more"></span></p>
+<p>我把这个功能补到了本机已经安装的 Codex VS Code 扩展，并把过程整理成了一个可审计、可恢复、可在扩展更新后再次运行的 PowerShell 补丁。本文记录实现思路、使用方法、限制，以及一份可复用的提示词。</p>
+<blockquote>
+<p>本文介绍的是非官方本地补丁，测试版本为 <code>openai.chatgpt-26.814.41407-win32-x64</code>。扩展内部构建产物会变化，运行前请先退出重要任务并阅读脚本。</p>
+</blockquote>
+<h2 id="想实现什么"><a class="markdownIt-Anchor" href="#想实现什么"></a> 想实现什么</h2>
+<p>补丁后的行为如下：</p>
+<ul>
+<li>默认只显示 <code>cwd</code> 与当前 VS Code 工作区根目录精确匹配的会话；</li>
+<li>多根工作区会把全部根目录一起传给查询；</li>
+<li>将 VS Code 设置 <code>Codex: Thread History Scope</code> 切换为 <code>All</code> 后显示全部会话；</li>
+<li>工作区目录或范围设置变化时，最近会话自动刷新；</li>
+<li>重命名、归档和恢复等既有操作保持不变。</li>
+</ul>
+<p>这不是把会话重新分类，也不会读取会话正文。过滤发生在列表查询阶段。</p>
+<h2 id="关键发现协议已经支持-cwd"><a class="markdownIt-Anchor" href="#关键发现协议已经支持-cwd"></a> 关键发现：协议已经支持 <code>cwd</code></h2>
+<p>Codex app-server 的 <a target="_blank" rel="noopener" href="https://github.com/openai/codex/blob/main/codex-rs/app-server/README.md"><code>thread/list</code> 文档</a> 已经提供 <code>cwd</code> 过滤参数；对应的 <a target="_blank" rel="noopener" href="https://github.com/openai/codex/blob/main/codex-rs/app-server-protocol/schema/json/v2/ThreadListParams.json"><code>ThreadListParams</code> JSON Schema</a> 表明它既可以是单个字符串，也可以是字符串数组。</p>
+<p>因此，最小实现不需要接管线程存储，只需要建立这一条数据流：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">VS Code 当前工作区根目录</span><br><span class="line">        ↓</span><br><span class="line">扩展 Host 返回 roots + threadHistoryScope</span><br><span class="line">        ↓</span><br><span class="line">Webview 最近会话请求按需加入 cwd</span><br><span class="line">        ↓</span><br><span class="line">app-server 在 thread/list 阶段过滤</span><br></pre></td></tr></table></figure>
+<p>当范围为 <code>currentWorkspace</code> 时，请求加入 <code>cwd: roots</code>；当范围为 <code>all</code>，或当前没有打开文件夹时，不发送 <code>cwd</code>，沿用原来的全量列表行为。</p>
+<h2 id="为什么要用补丁脚本而不是手工改压缩后的-javascript"><a class="markdownIt-Anchor" href="#为什么要用补丁脚本而不是手工改压缩后的-javascript"></a> 为什么要用补丁脚本，而不是手工改压缩后的 JavaScript</h2>
+<p>已发布的 VS Code 扩展通常只有打包、压缩后的 JavaScript。直接搜索替换虽然快，但扩展一更新就会失效，而且很容易留下半修改状态。这个补丁脚本把维护所需的保护一起做了：</p>
+<ol>
+<li>自动寻找最近安装的 <code>openai.chatgpt-*</code> 扩展目录，也允许显式传入路径；</li>
+<li>先检查新版是否已经原生为最近会话请求加入 <code>cwd</code>，有原生支持时停止修改；</li>
+<li>使用精确锚点定位修改位置，锚点缺失或匹配不唯一时直接停止；</li>
+<li>写入前一次性备份全部目标文件，并记录扩展版本、绝对路径和原始 SHA-256；</li>
+<li>先在内存中生成全部目标内容，再开始落盘；</li>
+<li>每次写入后校验目标 SHA-256，任何一步失败都从本次备份自动回滚；</li>
+<li>完整应用后再次运行是幂等的，不会重复插入代码；</li>
+<li><code>Restore</code> 前也会备份当时的文件，所以恢复动作本身同样可追溯。</li>
+</ol>
+<p>补丁目前只触碰四个目标：扩展的 <code>package.json</code>、Host 端入口，以及两个 Webview 构建资源。脚本不联网、不下载第三方代码，也不读取任何会话内容。</p>
+<h2 id="下载离线补丁"><a class="markdownIt-Anchor" href="#下载离线补丁"></a> 下载离线补丁</h2>
+<ul>
+<li><a href="/downloads/codex-vscode-workspace-history-patch-v1.zip">下载：codex-vscode-workspace-history-patch-v1.zip</a></li>
+<li><a href="/downloads/codex-vscode-workspace-history-patch-v1.zip.sha256">SHA-256 校验文件</a></li>
+</ul>
+<p>压缩包只包含补丁脚本、语法检查工具和文档，不包含 OpenAI 扩展文件，也不包含我本机的备份或会话数据。下载后可以完全离线运行。</p>
+<p>没有附上“修改后的完整 Codex 扩展包”。本机扩展自带的 <code>LICENSE.md</code> 指向 OpenAI 的服务条款；当前 <a target="_blank" rel="noopener" href="https://openai.com/policies/row-terms-of-use/">OpenAI Terms of Use</a> 对修改、复制和分发服务设有限制。为避免重新分发第三方二进制带来的许可风险，这里只发布独立编写的增量补丁。这不是法律意见；实际使用仍应遵守你所在地的法律和适用条款。</p>
+<h2 id="使用方法"><a class="markdownIt-Anchor" href="#使用方法"></a> 使用方法</h2>
+<p>解压后，在 PowerShell 中进入补丁目录。先查看状态：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; <span class="string">&#x27;.\Apply-CodexWorkspaceHistoryPatch.ps1&#x27;</span> <span class="literal">-Mode</span> Status</span><br></pre></td></tr></table></figure>
+<p>应用补丁：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; <span class="string">&#x27;.\Apply-CodexWorkspaceHistoryPatch.ps1&#x27;</span> <span class="literal">-Mode</span> Apply</span><br></pre></td></tr></table></figure>
+<p>如果系统的脚本执行策略阻止运行，可以对这一次进程使用：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">powershell <span class="literal">-NoProfile</span> <span class="literal">-ExecutionPolicy</span> Bypass `</span><br><span class="line">  <span class="operator">-File</span> <span class="string">&#x27;.\Apply-CodexWorkspaceHistoryPatch.ps1&#x27;</span> <span class="literal">-Mode</span> Apply</span><br></pre></td></tr></table></figure>
+<p>成功后，在 VS Code 命令面板执行 <code>Developer: Reload Window</code>。随后打开设置，搜索 <code>Codex: Thread History Scope</code>：</p>
+<ul>
+<li><code>Current Workspace</code>：默认值，只显示当前工作区；</li>
+<li><code>All</code>：显示所有工作区的线程。</li>
+</ul>
+<p>如果自动定位到的不是你想修改的安装目录，可以显式指定：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&amp; <span class="string">&#x27;.\Apply-CodexWorkspaceHistoryPatch.ps1&#x27;</span> `</span><br><span class="line">  <span class="literal">-Mode</span> Apply `</span><br><span class="line">  <span class="literal">-ExtensionPath</span> <span class="string">&#x27;C:\Users\you\.vscode\extensions\openai.chatgpt-版本-平台&#x27;</span></span><br></pre></td></tr></table></figure>
+<h2 id="恢复官方文件"><a class="markdownIt-Anchor" href="#恢复官方文件"></a> 恢复官方文件</h2>
+<p>执行：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&amp; <span class="string">&#x27;.\Apply-CodexWorkspaceHistoryPatch.ps1&#x27;</span> <span class="literal">-Mode</span> Restore</span><br></pre></td></tr></table></figure>
+<p>默认会恢复当前扩展目录最近一次 <code>Apply</code> 留下的备份。也可以用 <code>-BackupDirectory</code> 指向某个明确的历史目录。脚本在恢复前仍会备份当前状态。</p>
+<p>最彻底的恢复方法是从 Marketplace 重新安装官方扩展。手工修改 Marketplace 扩展文件也可能触发 VS Code 的“扩展已修改或损坏”完整性提示，这是预期风险。</p>
+<h2 id="扩展更新以后怎么办"><a class="markdownIt-Anchor" href="#扩展更新以后怎么办"></a> 扩展更新以后怎么办</h2>
+<p>扩展更新通常会安装到新的版本目录，旧补丁不会自动进入新版。再次运行同一个 <code>-Mode Apply</code> 即可：</p>
+<ul>
+<li>如果新版已经原生支持当前工作区过滤，脚本报告 <code>native-support</code> 并停止；</li>
+<li>如果仍是已知结构，脚本先创建一份新的版本化备份，再重新应用；</li>
+<li>如果构建结构变化、锚点不再唯一，脚本会在写入前停止，不会猜测性修改。</li>
+</ul>
+<p>建议每次更新后先运行 <code>-Mode Status</code>，确认状态再决定是否应用。</p>
+<h2 id="已知限制"><a class="markdownIt-Anchor" href="#已知限制"></a> 已知限制</h2>
+<p><code>thread/list</code> 对 <code>cwd</code> 做精确匹配，因此下面几种情况可能让某个会话暂时“消失”：</p>
+<ul>
+<li>会话创建时的工作目录不是项目根目录；</li>
+<li>同一个目录使用了不同的路径表示，例如 Windows 路径与 WSL 路径；</li>
+<li>文件夹被移动或改名；</li>
+<li>当前打开的是空窗口，没有工作区根目录。</li>
+</ul>
+<p>遇到这些情况，把范围切换为 <code>All</code> 即可找到原线程。补丁不会删除或迁移线程。</p>
+<h2 id="可复用提示词"><a class="markdownIt-Anchor" href="#可复用提示词"></a> 可复用提示词</h2>
+<p>下面这份提示词保留了这次最重要的安全和可维护性要求。把 issue 链接替换成自己的目标即可：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">请将以下 GitHub issue 描述的功能实现到我当前已安装的 VS Code Codex 扩展：</span><br><span class="line">&lt;ISSUE_URL&gt;</span><br><span class="line"></span><br><span class="line">目标行为：</span><br><span class="line">- 默认只显示 cwd 与当前 VS Code 工作区根目录匹配的最近会话；</span><br><span class="line">- 多根工作区应支持同时过滤；</span><br><span class="line">- 提供 Current Workspace / All 两种范围；</span><br><span class="line">- 工作区或范围变化后自动刷新历史；</span><br><span class="line">- 保留会话重命名、归档、恢复等现有行为。</span><br><span class="line"></span><br><span class="line">安全与维护要求：</span><br><span class="line">1. 先只读分析 issue、官方协议/Schema 和当前扩展版本，确认是否已有原生实现；已有则停止修改并说明。</span><br><span class="line">2. 不下载或注入不明代码，不读取会话正文，不添加遥测、联网、提权、持久化后门或任何危险逻辑。</span><br><span class="line">3. 修改任何已有文件前，先做带 UTC 时间戳的逐文件备份，记录原始 SHA-256、目标 SHA-256、扩展版本和绝对路径。</span><br><span class="line">4. 先在内存或临时副本中生成并验证全部修改，再写入安装目录。</span><br><span class="line">5. 使用特征探测和精确锚点；锚点缺失或匹配不唯一时停止，不要猜测。</span><br><span class="line">6. 任何写入或校验失败都要自动从本次备份完整回滚。</span><br><span class="line">7. 提供 Status / Apply / Restore 三种模式，重复 Apply 必须幂等；Restore 前也要备份当前状态。</span><br><span class="line">8. 扩展更新后自动定位最新的 openai.chatgpt 目录；如果新版已有原生功能就不修改，否则允许再次应用补丁。</span><br><span class="line">9. 修改后验证 package.json、JavaScript 语法、文件哈希和完整补丁标记，并给出重新加载 VS Code、切换设置和恢复步骤。</span><br><span class="line">10. 不打包、上传或分发原厂扩展及其备份，只生成不含原厂文件的独立增量补丁包。</span><br><span class="line"></span><br><span class="line">请先说明你识别出的扩展目录、版本、计划修改的文件和验证方案，再执行。完成后列出备份目录、最终状态、验证结果和恢复命令。</span><br></pre></td></tr></table></figure>
+<p>这类本地补丁真正重要的不是“今天能改成功”，而是明天扩展升级后，它能知道什么时候该重新应用、什么时候该停止，以及出错时如何完整回到修改前。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Codex/" rel="tag"># Codex</a>
+              <a href="/tags/VS-Code/" rel="tag"># VS Code</a>
+              <a href="/tags/PowerShell/" rel="tag"># PowerShell</a>
+              <a href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag"># 工具</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/articles/2026/elevator-algorithm.html" rel="prev" title="电梯为什么不马上来：从 LOOK 到群控调度算法">
+                  <i class="fa fa-chevron-left"></i> 电梯为什么不马上来：从 LOOK 到群控调度算法
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+    <div class="comments" id="lv-container" data-id="city" data-uid="MTAyMC8zNjU5OS8xMzEzNA=="></div>
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 2017 – 
+  <span itemprop="copyrightYear">2026</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">actpi</span>
+</div>
+<div class="wordcount">
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-line"></i>
+    </span>
+      <span>站点总字数：</span>
+    <span title="站点总字数">50k</span>
+  </span>
+  <span class="post-meta-item">
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span>站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:03</span>
+  </span>
+</div>
+<div class="busuanzi-count">
+    <span class="post-meta-item" id="busuanzi_container_site_uv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-user"></i>
+      </span>
+      <span class="site-uv" title="总访客量">
+        <span id="busuanzi_value_site_uv"></span>
+      </span>
+    </span>
+    <span class="post-meta-item" id="busuanzi_container_site_pv">
+      <span class="post-meta-item-icon">
+        <i class="fa fa-eye"></i>
+      </span>
+      <span class="site-pv" title="总访问量">
+        <span id="busuanzi_value_site_pv"></span>
+      </span>
+    </span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up fa-lg"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.4/jquery.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js" integrity="sha256-yt2kYMy0w8AbtF89WXb2P1rfjcP/HTHLT7097U8Y5b8=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+  <script src="/js/third-party/fancybox.js"></script>
+
+  <script src="/js/third-party/pace.js"></script>
+
+
+  
+  <script async src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+
+<script src="/js/third-party/comments/livere.js"></script>
+
+  <!-- 页面点击小红心 -->
+  <script type="text/javascript" src="/js/love.js"></script>
+</body>
+</html>
